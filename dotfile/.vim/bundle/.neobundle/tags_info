@@ -1,9 +1,0 @@
-caw.vim
-lightline.vim
-matchtagalways
-neobundle.vim
-neocomplete.vim
-syntastic
-vim-autoclose
-vim-quickhl
-vimproc
