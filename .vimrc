@@ -68,7 +68,6 @@ map <Space>M <Plug>(quickhl-manual-reset)
 call neobundle#end()
 filetype plugin indent on
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 "インデントは6つ
 "set expandtab インデントは半角スペース
 set tabstop=6
@@ -93,9 +92,7 @@ autocmd VimEnter,Colorscheme * highlight NonText cterm=NONE ctermfg=blue ctermbg
 "colorscheme"
 set t_Co=256
 syntax on
-colorscheme sweetcandy
-"atom-dark-256 antares crystallite deepsea gryffin iceberg lyla moonshine sweetcandy tender walfpack
-"frictionless, hybrid, molokai, twilight, wasabi
+colorscheme default
 set background=dark
 
 autocmd VimEnter,Colorscheme * highlight Visual cterm=NONE ctermfg=white ctermbg=darkcyan
