@@ -51,6 +51,7 @@ let g:neocomplete#sources#tags#cache_limit_size   = 30000000
 let g:neocomplete#enable_fuzzy_completion         = 1
 let g:neocomplete#lock_buffer_name_pattern        = '\*ku\*'
 
+
 "htmlのマッチしている先を教えてくれる
 NeoBundle 'valloric/matchtagalways'
 "MatchTagAlwaysのオプション機能ONにする
@@ -65,9 +66,17 @@ NeoBundle "t9md/vim-quickhl"
 map <Space>m <Plug>(quickhl-manual-this)
 map <Space>M <Plug>(quickhl-manual-reset)
 
+"visualモードで洗濯したものを検索 gx
+NeoBundle 'open-browser.vim'
+let g:netrw_nogx = 1
+nmap gx <Plug>(openbrowser-smart-search)
+vmap gx <Plug>(openbrowser-smart-search)
+
+
 call neobundle#end()
 filetype plugin indent on
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 "インデントは6つ
 "set expandtab インデントは半角スペース
 set tabstop=6
@@ -85,14 +94,15 @@ set nowrap
 
 "不可視文字の可視化
 set list
-set listchars=tab:\>\ ,trail:-,eol:↲
+set listchars=tab:\>\ 
 autocmd VimEnter,Colorscheme * highlight SpecialKey cterm=NONE ctermfg=blue ctermbg=NONE
-autocmd VimEnter,Colorscheme * highlight NonText cterm=NONE ctermfg=blue ctermbg=NONE
 
 "colorscheme"
 set t_Co=256
 syntax on
-colorscheme default
+colorscheme sweetcandy
+"atom-dark-256 antares crystallite deepsea gryffin iceberg lyla moonshine sweetcandy tender walfpack
+"frictionless, hybrid, molokai, twilight, wasabi
 set background=dark
 
 autocmd VimEnter,Colorscheme * highlight Visual cterm=NONE ctermfg=white ctermbg=darkcyan

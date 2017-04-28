@@ -3,6 +3,7 @@ lightline.vim
 matchtagalways
 neobundle.vim
 neocomplete.vim
+open-browser.vim
 syntastic
 vim-autoclose
 vim-quickhl
