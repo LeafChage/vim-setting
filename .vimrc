@@ -66,7 +66,7 @@ NeoBundle "t9md/vim-quickhl"
 map <Space>m <Plug>(quickhl-manual-this)
 map <Space>M <Plug>(quickhl-manual-reset)
 
-"visualモードで洗濯したものを検索 gx
+"visualモードで選択したものを検索 gx
 NeoBundle 'open-browser.vim'
 let g:netrw_nogx = 1
 nmap gx <Plug>(openbrowser-smart-search)
