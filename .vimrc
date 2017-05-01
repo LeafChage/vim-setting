@@ -66,6 +66,9 @@ NeoBundle "t9md/vim-quickhl"
 map <Space>m <Plug>(quickhl-manual-this)
 map <Space>M <Plug>(quickhl-manual-reset)
 
+"jellybeans
+NeoBundle 'nanotech/jellybeans.vim'
+
 "visualモードで選択したものを検索 gx
 NeoBundle 'open-browser.vim'
 let g:netrw_nogx = 1
@@ -99,9 +102,10 @@ autocmd VimEnter,Colorscheme * highlight SpecialKey cterm=NONE ctermfg=blue cter
 "colorscheme"
 set t_Co=256
 syntax on
-colorscheme sweetcandy
+colorscheme jellybeans
 "set background=dark
 "wasabi lyla sweetcandy iceberg gryffin crystallite behelit walfpack
+"jellybeans
 
 autocmd VimEnter,Colorscheme * highlight Visual cterm=NONE ctermfg=white ctermbg=darkcyan
 autocmd VimEnter,ColorScheme * highlight Comment ctermfg=36
