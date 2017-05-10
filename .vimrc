@@ -148,3 +148,6 @@ set nocursorline
 
 "現在の行表示"
 set number
+
+"保存時に行末の空白行を削除
+autocmd BufWritePre * :%s/\s\+$//ge
