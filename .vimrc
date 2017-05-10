@@ -37,7 +37,7 @@ NeoBundle 'Shougo/vimproc', {
 if has('lua')
 	NeoBundleLazy 'Shougo/neocomplete.vim', {
 		\ 'depends' : 'Shougo/vimproc',
-		\ 'autoload' : { 'insert' : 1,}
+		\ 'autoload' : { 'insert' : 5,}
 		\ }
 endif
 let g:neocomplete#enable_at_startup               = 1
@@ -50,11 +50,10 @@ let g:neocomplete#sources#buffer#cache_limit_size = 1000000
 let g:neocomplete#sources#tags#cache_limit_size   = 30000000
 let g:neocomplete#enable_fuzzy_completion         = 1
 let g:neocomplete#lock_buffer_name_pattern        = '\*ku\*'
-
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 "htmlのマッチしている先を教えてくれる
 NeoBundle 'valloric/matchtagalways'
-"MatchTagAlwaysのオプション機能ONにする
 let g:mta_use_matchparen_group = 1
 let g:mta_filetypes = {
 	\ 'html' : 1,
@@ -68,6 +67,9 @@ map <Space>M <Plug>(quickhl-manual-reset)
 
 "jellybeans
 NeoBundle 'nanotech/jellybeans.vim'
+
+"go lang
+NeoBundle 'fatih/vim-go'
 
 "visualモードで選択したものを検索 gx
 NeoBundle 'open-browser.vim'
