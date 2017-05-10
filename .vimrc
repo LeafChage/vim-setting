@@ -5,7 +5,7 @@ filetype plugin indent off
 if has('vim_starting')
 	set runtimepath+=~/.vim/bundle/neobundle.vim
 	call neobundle#begin(expand('~/.vim/bundle'))
-endif 
+endif
 "plugin追加
 NeoBundleFetch 'Shougo/neobundle.vim'
 
@@ -15,7 +15,7 @@ NeoBundle 'scrooloose/syntastic.git'
 "フッター的なやつ
 NeoBundle 'itchyny/lightline.vim'
 
-"複数行のコメントアウト ctrl+k 
+"複数行のコメントアウト ctrl+k
 NeoBundle "tyru/caw.vim.git"
 nmap <C-K> <Plug>(caw:i:toggle)
 vmap <C-K> <Plug>(caw:i:toggle)
@@ -33,25 +33,6 @@ NeoBundle 'Shougo/vimproc', {
 	\    },
 	\ }
 
-""コード保管
-if has('lua')
-	NeoBundleLazy 'Shougo/neocomplete.vim', {
-		\ 'depends' : 'Shougo/vimproc',
-		\ 'autoload' : { 'insert' : 5,}
-		\ }
-endif
-let g:neocomplete#enable_at_startup               = 1
-let g:neocomplete#auto_completion_start_length    = 3
-let g:neocomplete#enable_ignore_case              = 1
-let g:neocomplete#enable_smart_case               = 1
-let g:neocomplete#enable_camel_case               = 1
-let g:neocomplete#use_vimproc                     = 1
-let g:neocomplete#sources#buffer#cache_limit_size = 1000000
-let g:neocomplete#sources#tags#cache_limit_size   = 30000000
-let g:neocomplete#enable_fuzzy_completion         = 1
-let g:neocomplete#lock_buffer_name_pattern        = '\*ku\*'
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
 "htmlのマッチしている先を教えてくれる
 NeoBundle 'valloric/matchtagalways'
 let g:mta_use_matchparen_group = 1
@@ -67,6 +48,7 @@ map <Space>M <Plug>(quickhl-manual-reset)
 
 "jellybeans
 NeoBundle 'nanotech/jellybeans.vim'
+NeoBundle 'w0ng/vim-hybrid'
 
 "go lang
 NeoBundle 'fatih/vim-go'
@@ -98,13 +80,12 @@ set nowrap
 
 "不可視文字の可視化
 set list
-set listchars=tab:\>\ 
-autocmd VimEnter,Colorscheme * highlight SpecialKey cterm=NONE ctermfg=blue ctermbg=NONE
+set listchars=tab:\>\_
 
 "colorscheme"
 set t_Co=256
 syntax on
-colorscheme jellybeans
+colorscheme hybrid
 set background=dark
 
 autocmd VimEnter,Colorscheme * highlight Visual cterm=NONE ctermfg=white ctermbg=darkcyan
