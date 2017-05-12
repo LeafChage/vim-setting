@@ -1,4 +1,4 @@
-"NeoBundle設定
+"NeoBundl設定
 set nocompatible
 filetype plugin indent off
 
@@ -6,23 +6,7 @@ if has('vim_starting')
 	set runtimepath+=~/.vim/bundle/neobundle.vim
 	call neobundle#begin(expand('~/.vim/bundle'))
 endif
-"plugin追加
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-"保存のタイミングで文法チェック
-NeoBundle 'scrooloose/syntastic.git'
-
-"フッター的なやつ
-NeoBundle 'itchyny/lightline.vim'
-
-"複数行のコメントアウト ctrl+k
-NeoBundle "tyru/caw.vim.git"
-nmap <C-K> <Plug>(caw:i:toggle)
-vmap <C-K> <Plug>(caw:i:toggle)
-
-"自動とじカッコ
-NeoBundle 'Townk/vim-autoclose'
-
+NeoBundleFetch 'Shougo/neobundle.vim' "plugin追加
 "非同期処理を走らせるプラグインが早くなる
 NeoBundle 'Shougo/vimproc', {
 	\ 'build' : {
@@ -32,35 +16,57 @@ NeoBundle 'Shougo/vimproc', {
 	\     'unix' : 'make -f make_unix.mak',
 	\    },
 	\ }
+NeoBundle 'scrooloose/syntastic.git' "保存のタイミングで文法チェック
+NeoBundle 'itchyny/lightline.vim' "フッター的なやつ
+NeoBundle "tyru/caw.vim.git"  "複数行のコメントアウト ctrl+k
+NeoBundle 'Townk/vim-autoclose' "自動とじカッコ
+NeoBundle 'valloric/matchtagalways' "htmlのマッチしている先を教えてくれる
+NeoBundle "t9md/vim-quickhl"  " カーソル下のハイライトをトグルする space+mで検索
 
-"htmlのマッチしている先を教えてくれる
-NeoBundle 'valloric/matchtagalways'
+"お好み
+NeoBundle 'nanotech/jellybeans.vim'
+NeoBundle 'w0ng/vim-hybrid'
+NeoBundle 'cocopon/iceberg.vim'
+NeoBundle 'tomasr/molokai'
+NeoBundle 'jpo/vim-railscasts-theme'
+NeoBundle 'croaker/mustang-vim'
+NeoBundle 'mrkn/mrkn256.vim'
+
+NeoBundle 'open-browser.vim' "visualモードで選択したものを検索 gx
+NeoBundle 'osyo-manga/vim-brightest' "カーソル下の文字を自動でハイライト
+call neobundle#end()
+filetype plugin indent on
+NeoBundleCheck
+
+"vim-brightest{
+let g:brightest#ignore_syntax_list = [ "Statement" ]
+let g:brightest#pattern = '\k\+'
+"}
+
+"caw.vim{
+nmap <C-K> <Plug>(caw:i:toggle)
+vmap <C-K> <Plug>(caw:i:toggle)
+"}
+
+"matchtagalways{
 let g:mta_use_matchparen_group = 1
 let g:mta_filetypes = {
 	\ 'html' : 1,
 	\ 'php' : 1,
-\}
+	\}
+"}
 
-" カーソル下のハイライトをトグルする space+mで検索
-NeoBundle "t9md/vim-quickhl"
+"vim-quickhl{
 map <Space>m <Plug>(quickhl-manual-this)
 map <Space>M <Plug>(quickhl-manual-reset)
+"}
 
-"jellybeans
-NeoBundle 'nanotech/jellybeans.vim'
-NeoBundle 'w0ng/vim-hybrid'
-
-"go lang
-NeoBundle 'fatih/vim-go'
-
-"visualモードで選択したものを検索 gx
-NeoBundle 'open-browser.vim'
+"open-browser{
 let g:netrw_nogx = 1
 nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
+"}
 
-call neobundle#end()
-filetype plugin indent on
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "インデントは6つ
@@ -85,7 +91,7 @@ set listchars=tab:\>\_
 "colorscheme"
 set t_Co=256
 syntax on
-colorscheme hybrid
+colorscheme mrkn256  "mustang mrkn256 railscasts molokai iceberg jellybeans hybrid
 set background=dark
 
 autocmd VimEnter,Colorscheme * highlight Visual cterm=NONE ctermfg=white ctermbg=darkcyan
