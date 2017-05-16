@@ -1,4 +1,5 @@
-"NeoBundl設定
+"NeoBund
+"設定
 set nocompatible
 filetype plugin indent off
 
@@ -16,24 +17,22 @@ NeoBundle 'Shougo/vimproc', {
 	\     'unix' : 'make -f make_unix.mak',
 	\    },
 	\ }
-NeoBundle 'scrooloose/syntastic.git' "保存のタイミングで文法チェック
-NeoBundle 'itchyny/lightline.vim' "フッター的なやつ
-NeoBundle "tyru/caw.vim.git"  "複数行のコメントアウト ctrl+k
-NeoBundle 'Townk/vim-autoclose' "自動とじカッコ
-NeoBundle 'valloric/matchtagalways' "htmlのマッチしている先を教えてくれる
-NeoBundle "t9md/vim-quickhl"  " カーソル下のハイライトをトグルする space+mで検索
-
-"お好み
-NeoBundle 'nanotech/jellybeans.vim'
+NeoBundle 'thinca/vim-quickrun'       "スクリプト実行 ctrl l
+NeoBundle 'scrooloose/syntastic.git'  "保存のタイミングで文法チェック
+NeoBundle 'itchyny/lightline.vim'     "フッター的なやつ
+NeoBundle "tyru/caw.vim.git"          "複数行のコメントアウト ctrl+k
+NeoBundle 'Townk/vim-autoclose'       "自動とじカッコ
+NeoBundle 'valloric/matchtagalways'   "htmlのマッチしている先を教えてくれる
+NeoBundle "t9md/vim-quickhl"          "カーソル下のハイライトをトグルする space+mで検索
+NeoBundle 'open-browser.vim'          "visualモードで選択したものを検索 gx
+NeoBundle 'osyo-manga/vim-brightest'  "カーソル下の文字を自動でハイライト
+NeoBundle 'osyo-manga/vim-over'       "おしゃれ置換 space + oで入る
+NeoBundle 'nanotech/jellybeans.vim'   "colorscheme >>>>>>>>>>>
 NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'cocopon/iceberg.vim'
-NeoBundle 'tomasr/molokai'
-NeoBundle 'jpo/vim-railscasts-theme'
 NeoBundle 'croaker/mustang-vim'
 NeoBundle 'mrkn/mrkn256.vim'
 
-NeoBundle 'open-browser.vim' "visualモードで選択したものを検索 gx
-NeoBundle 'osyo-manga/vim-brightest' "カーソル下の文字を自動でハイライト
 call neobundle#end()
 filetype plugin indent on
 NeoBundleCheck
@@ -67,6 +66,17 @@ nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
 "}
 
+"osyo-manga/vim-over{
+nnoremap <silent> <Space>o :OverCommandLine<CR>%s//g<Left><Left>
+"}
+
+" vim-quickrun{
+nnoremap <silent> <C-l> :QuickRun<CR>
+let g:quickrun_config={'_': {'split': 'vertical'}}
+set splitright
+" }
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "インデントは6つ
@@ -91,7 +101,7 @@ set listchars=tab:\>\_
 "colorscheme"
 set t_Co=256
 syntax on
-colorscheme mrkn256  "mustang mrkn256 railscasts molokai iceberg jellybeans hybrid
+colorscheme iceberg  "mustang iceberg jellybeans hybrid vim-vice
 set background=dark
 
 autocmd VimEnter,Colorscheme * highlight Visual cterm=NONE ctermfg=white ctermbg=darkcyan
