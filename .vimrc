@@ -26,12 +26,12 @@ NeoBundle 'valloric/matchtagalways'   "htmlのマッチしている先を教え�
 NeoBundle "t9md/vim-quickhl"          "カーソル下のハイライトをトグルする space+mで検索
 NeoBundle 'open-browser.vim'          "visualモードで選択したものを検索 gx
 NeoBundle 'osyo-manga/vim-brightest'  "カーソル下の文字を自動でハイライト
-NeoBundle 'osyo-manga/vim-over'       "おしゃれ置換 space + oで入る
+NeoBundle 'rust-lang/rust.vim'        "rust
+NeoBundle 'junegunn/vim-easy-align'   "テキスト整形 visualモードで ga
 NeoBundle 'nanotech/jellybeans.vim'   "colorscheme >>>>>>>>>>>
 NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'cocopon/iceberg.vim'
-NeoBundle 'croaker/mustang-vim'
-NeoBundle 'mrkn/mrkn256.vim'
+NeoBundle 'christophermca/meta5'
 
 call neobundle#end()
 filetype plugin indent on
@@ -66,15 +66,16 @@ nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
 "}
 
-"osyo-manga/vim-over{
-nnoremap <silent> <Space>o :OverCommandLine<CR>%s//g<Left><Left>
-"}
-
 " vim-quickrun{
 nnoremap <silent> <C-l> :QuickRun<CR>
 let g:quickrun_config={'_': {'split': 'vertical'}}
 set splitright
 " }
+
+"easy-align{
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+"}
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -98,14 +99,15 @@ set nowrap
 set list
 set listchars=tab:\>\_
 
-"colorscheme"
+"color
+autocmd VimEnter,ColorScheme * highlight Visual cterm=NONE ctermfg=white ctermbg=darkcyan
+autocmd VimEnter,ColorScheme * highlight Comment ctermfg=25
+autocmd VimEnter,ColorScheme * highlight LineNr ctermfg=25
+autocmd VimEnter,ColorScheme * highlight SpecialKey ctermfg=239
 set t_Co=256
 syntax on
-colorscheme iceberg  "mustang iceberg jellybeans hybrid vim-vice
+colorscheme hybrid  "meta5 iceberg jellybeans hybrid vim-vice
 set background=dark
-
-autocmd VimEnter,Colorscheme * highlight Visual cterm=NONE ctermfg=white ctermbg=darkcyan
-autocmd VimEnter,ColorScheme * highlight Comment ctermfg=36
 
 "行末の1文字先までカーソルを移動できるように
 set virtualedit=onemore
@@ -148,3 +150,8 @@ set number
 
 "保存時に行末の空白行を削除
 autocmd BufWritePre * :%s/\s\+$//ge
+
+"cusurlineトグル
+map <silent> <C-c> :set cursorline! cursorcolumn!<CR>
+highlight CursorLine cterm=NONE ctermfg=0 ctermbg=6
+highlight CursorColumn cterm=NONE ctermfg=0 ctermbg=6
