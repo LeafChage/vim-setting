@@ -30,12 +30,6 @@ let g:quickrun_config = {
 \       'split': 'vertical',
 \   },
 \}
-let g:quickrun_config['swift'] = {
-\ 'command': 'xcrun',
-\ 'cmdopt': 'swift',
-\ 'exec': '%c %o %s',
-\}
-let g:quickrun_config['clojure'] = {'exec' : 'lein exec'}
 let g:quickrun_config = {
 \   '*': {'runmode': 'async:remote:vimproc'},
 \ }
@@ -90,9 +84,7 @@ map <silent> :Vex<CR> :NERDTreeToggle<CR>
 "}
 
 " language {
-NeoBundle 'fatih/vim-go'            "go
 NeoBundle 'vim-scripts/paredit.vim' "lisp
-NeoBundle 'wlangstroth/vim-racket'  "racket
 NeoBundle 'rust-lang/rust.vim'      "rust
 "}
 
@@ -132,9 +124,7 @@ set nowrap
 
 "color
 autocmd VimEnter,ColorScheme * highlight Visual cterm=NONE ctermfg=white ctermbg=darkcyan
-autocmd VimEnter,ColorScheme * highlight Comment ctermfg=242
-autocmd VimEnter,ColorScheme * highlight LineNr ctermfg=103 ctermbg=236
-"autocmd VimEnter,ColorScheme * highlight SpecialKey ctermfg=239
+autocmd VimEnter,ColorScheme * highlight Comment ctermfg=242 autocmd VimEnter,ColorScheme * highlight LineNr ctermfg=103 ctermbg=236 "autocmd VimEnter,ColorScheme * highlight SpecialKey ctermfg=239
 
 " set t_Co=256
 syntax on
