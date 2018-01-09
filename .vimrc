@@ -16,36 +16,42 @@ NeoBundle 'Shougo/vimproc', {
                   \     'unix' : 'make -f make_unix.mak',
                   \    },
                   \ }
-NeoBundle 'thinca/vim-quickrun'       "スクリプト実行 :run
+
+" NeoBundle 'vim-syntastic/syntastic' "
 NeoBundle 'w0rp/ale' "syntax
-NeoBundle 'itchyny/lightline.vim'     "フッター的なやつ
-NeoBundle "tyru/caw.vim.git"          "複数行のコメントアウト ctrl+k
-" NeoBundle 'Townk/vim-autoclose'       "自動とじカッコ
-NeoBundle 'valloric/matchtagalways'   "htmlのマッチしている先を教えてくれる
-NeoBundle "t9md/vim-quickhl"          "カーソル下のハイライトをトグルする space+mで検索
-"NeoBundle 'rust-lang/rust.vim'        "rust
-"NeoBundle 'fatih/vim-go'              "go
-NeoBundle 'nathanaelkane/vim-indent-guides' "indent
-NeoBundle 'junegunn/vim-easy-align'   "テキスト整形 visualモードで ga
-NeoBundle 'vim-scripts/paredit.vim' "lisp
+NeoBundle 'osyo-manga/vim-watchdogs'
+NeoBundle 'itchyny/lightline.vim'           " フッター的なやつ
 
-"colorscheme >>>>>>>>>>>
-NeoBundle 'nanotech/jellybeans.vim'
-NeoBundle 'w0ng/vim-hybrid'
-NeoBundle 'cocopon/iceberg.vim'
-NeoBundle 'christophermca/meta5'
+" スクリプト実行 :run {
+NeoBundle 'thinca/vim-quickrun'
+nnoremap <silent> :run<CR> :QuickRun<CR>
+let g:quickrun_config = {
+\   "_" : {
+\       'split': 'vertical',
+\   },
+\}
+let g:quickrun_config['swift'] = {
+\ 'command': 'xcrun',
+\ 'cmdopt': 'swift',
+\ 'exec': '%c %o %s',
+\}
+let g:quickrun_config['clojure'] = {'exec' : 'lein exec'}
+let g:quickrun_config = {
+\   '*': {'runmode': 'async:remote:vimproc'},
+\ }
+let g:quickrun_config['rust'] = {'exec' : 'cargo run'}
+" }
 
+set splitright
 
-call neobundle#end()
-filetype plugin indent on
-NeoBundleCheck
-
-"caw.vim{
+" 複数行のコメントアウト ctrl+k {
+NeoBundle 'tyru/caw.vim.git'
 nmap <C-K> <Plug>(caw:i:toggle)
 vmap <C-K> <Plug>(caw:i:toggle)
 "}
 
-"matchtagalways{
+" htmlのマッチしている先を教えてくれる {
+NeoBundle 'valloric/matchtagalways'
 let g:mta_use_matchparen_group = 1
 let g:mta_filetypes = {
                   \ 'html' : 1,
@@ -53,24 +59,14 @@ let g:mta_filetypes = {
                   \}
 "}
 
-"vim-quickhl{
+" カーソル下のハイライトをトグルする space+mで検索 {
+NeoBundle "t9md/vim-quickhl"
 map <Space>m <Plug>(quickhl-manual-this)
 map <Space>M <Plug>(quickhl-manual-reset)
 "}
 
-" vim-quickrun{
-nnoremap <silent> :run<CR> :QuickRun<CR>
-let g:quickrun_config={'_': {'split': 'vertical'}}
-set splitright
-" }
-
-"easy-align{
-xmap ga <Plug>(EasyAlign)
-nmap ga <Plug>(EasyAlign)
-"}
-
-
-"vim -indent-guides{
+" indent{
+NeoBundle 'nathanaelkane/vim-indent-guides'
 let g:indent_guides_start_level=2
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_guide_size = 1
@@ -78,6 +74,41 @@ let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=235
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=235
 "}
+
+" テキスト整形 visualモードで ga {
+NeoBundle 'junegunn/vim-easy-align'
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+"}
+
+"ファイル構造 {
+NeoBundle 'scrooloose/nerdtree'
+let g:NERDTreeDirArrows = 1
+let g:NERDTreeDirArrowExpandable  = '▶'
+let g:NERDTreeDirArrowCollapsible = '▼'
+map <silent> :Vex<CR> :NERDTreeToggle<CR>
+"}
+
+" language {
+NeoBundle 'fatih/vim-go'            "go
+NeoBundle 'vim-scripts/paredit.vim' "lisp
+NeoBundle 'wlangstroth/vim-racket'  "racket
+NeoBundle 'rust-lang/rust.vim'      "rust
+"}
+
+"colorscheme {
+NeoBundle 'nanotech/jellybeans.vim'
+NeoBundle 'w0ng/vim-hybrid'
+NeoBundle 'cocopon/iceberg.vim'
+NeoBundle 'christophermca/meta5'
+" }
+
+
+call neobundle#end()
+filetype plugin indent on
+NeoBundleCheck
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "インデントは6つ
@@ -85,6 +116,10 @@ set expandtab "インデントは半角スペース
 set tabstop=6
 set shiftwidth=6
 set autoindent
+
+" filetype check
+filetype off
+filetype on
 
 "検索結果のハイライト
 set hlsearch
@@ -101,10 +136,10 @@ autocmd VimEnter,ColorScheme * highlight Comment ctermfg=242
 autocmd VimEnter,ColorScheme * highlight LineNr ctermfg=103 ctermbg=236
 "autocmd VimEnter,ColorScheme * highlight SpecialKey ctermfg=239
 
-set t_Co=256
+" set t_Co=256
 syntax on
 set background=dark
-colorscheme meta5 "meta5 iceberg jellybeans hybrid vim-vice
+colorscheme meta5 "meta5 iceberg jellybeans hybrid solarized
 
 "全角スペースをハイライト
 function! ZenkakuSpace()
@@ -149,3 +184,4 @@ map <silent> <C-c> :set cursorline! cursorcolumn!<CR>
 highlight CursorLine cterm=NONE ctermfg=0 ctermbg=6
 highlight CursorColumn cterm=NONE ctermfg=0 ctermbg=6
 
+autocmd VimEnter * imap <Nul> <esc>
