@@ -16,6 +16,7 @@ NeoBundle 'Shougo/vimproc', {
                   \     'unix' : 'make -f make_unix.mak',
                   \    },
                   \ }
+NeoBundle 'Shougo/vimshell'
 
 " NeoBundle 'vim-syntastic/syntastic' "
 NeoBundle 'w0rp/ale' "syntax
@@ -30,10 +31,23 @@ let g:quickrun_config = {
 \       'split': 'vertical',
 \   },
 \}
+let g:quickrun_config['swift'] = {
+\ 'command': 'xcrun',
+\ 'cmdopt': 'swift',
+\ 'exec': '%c %o %s',
+\}
+let g:quickrun_config['clojure'] = {'exec' : 'lein exec'}
 let g:quickrun_config = {
 \   '*': {'runmode': 'async:remote:vimproc'},
 \ }
 let g:quickrun_config['rust'] = {'exec' : 'cargo run'}
+let g:quickrun_config['nim'] = {
+      \ 'command': 'nim',
+      \ 'cmdopt': 'compile --run --verbosity:0',
+      \ 'hook/sweep/files': '%S:p:r',
+      \ 'tempfile': '%{substitute(tempname(), ''\(\d\+\)$'', ''nim\1.nim'', '''')}'
+      \}
+
 " }
 
 set splitright
@@ -78,15 +92,33 @@ nmap ga <Plug>(EasyAlign)
 "ファイル構造 {
 NeoBundle 'scrooloose/nerdtree'
 let g:NERDTreeDirArrows = 1
-let g:NERDTreeDirArrowExpandable  = '▶'
-let g:NERDTreeDirArrowCollapsible = '▼'
+let g:NERDTreeDirArrowExpandable  = '>'
+let g:NERDTreeDirArrowCollapsible = '@'
 map <silent> :Vex<CR> :NERDTreeToggle<CR>
 "}
+
+" 画面サイズ変更 {
+NeoBundle 'simeji/winresizer'
+" }
+
 
 " language {
 NeoBundle 'vim-scripts/paredit.vim' "lisp
 NeoBundle 'rust-lang/rust.vim'      "rust
+NeoBundle 'fatih/vim-go'            "go
+NeoBundle 'hylang/vim-hy'           "hy
 "}
+
+" vlime {
+NeoBundle 'l04m33/vlime', {'rtp': 'vim/'} "lisp
+" たちあげ
+" ros run -- --load ~/.vim/Bundle/vlime/lisp/start-vlime.lisp
+" }
+
+"Colorizer {
+NeoBundle "chrisbra/Colorizer"
+map <Space>c :ColorToggle<CR>
+"]
 
 "colorscheme {
 NeoBundle 'nanotech/jellybeans.vim'
@@ -110,7 +142,6 @@ set shiftwidth=6
 set autoindent
 
 " filetype check
-filetype off
 filetype on
 
 "検索結果のハイライト
@@ -124,7 +155,9 @@ set nowrap
 
 "color
 autocmd VimEnter,ColorScheme * highlight Visual cterm=NONE ctermfg=white ctermbg=darkcyan
-autocmd VimEnter,ColorScheme * highlight Comment ctermfg=242 autocmd VimEnter,ColorScheme * highlight LineNr ctermfg=103 ctermbg=236 "autocmd VimEnter,ColorScheme * highlight SpecialKey ctermfg=239
+autocmd VimEnter,ColorScheme * highlight Comment ctermfg=242
+autocmd VimEnter,ColorScheme * highlight LineNr ctermfg=103 ctermbg=236
+"autocmd VimEnter,ColorScheme * highlight SpecialKey ctermfg=239
 
 " set t_Co=256
 syntax on
@@ -175,3 +208,4 @@ highlight CursorLine cterm=NONE ctermfg=0 ctermbg=6
 highlight CursorColumn cterm=NONE ctermfg=0 ctermbg=6
 
 autocmd VimEnter * imap <Nul> <esc>
+
