@@ -1,139 +1,39 @@
-"NeoBund
-set nocompatible
-filetype plugin indent off
-
-if has('vim_starting')
-      set runtimepath+=~/.vim/bundle/neobundle.vim
-      call neobundle#begin(expand('~/.vim/bundle'))
+if &compatible
+  set nocompatible
 endif
-NeoBundleFetch 'Shougo/neobundle.vim' "plugin追加
-"非同期処理を走らせるプラグインが早くなる
-NeoBundle 'Shougo/vimproc', {
-                  \ 'build' : {
-                  \     'windows' : 'make -f make_mingw32.mak',
-                  \     'cygwin' : 'make -f make_cygwin.mak',
-                  \     'mac' : 'make -f make_mac.mak',
-                  \     'unix' : 'make -f make_unix.mak',
-                  \    },
-                  \ }
-NeoBundle 'Shougo/vimshell'
 
-" NeoBundle 'vim-syntastic/syntastic' "
-NeoBundle 'w0rp/ale' "syntax
-NeoBundle 'osyo-manga/vim-watchdogs'
-NeoBundle 'itchyny/lightline.vim'           " フッター的なやつ
+" Prepare .vim dir
+let s:vimdir = $HOME . "/.vim"
+if has("vim_starting")
+      if ! isdirectory(s:vimdir)
+            call system("mkdir " . s:vimdir)
+      endif
+endif
 
-" スクリプト実行 :run {
-NeoBundle 'thinca/vim-quickrun'
-nnoremap <silent> :run<CR> :QuickRun<CR>
-let g:quickrun_config = {
-\   "_" : {
-\       'split': 'vertical',
-\   },
-\}
-let g:quickrun_config['swift'] = {
-\ 'command': 'xcrun',
-\ 'cmdopt': 'swift',
-\ 'exec': '%c %o %s',
-\}
-let g:quickrun_config['clojure'] = {'exec' : 'lein exec'}
-let g:quickrun_config = {
-\   '*': {'runmode': 'async:remote:vimproc'},
-\ }
-let g:quickrun_config['rust'] = {'exec' : 'cargo run'}
-let g:quickrun_config['nim'] = {
-      \ 'command': 'nim',
-      \ 'cmdopt': 'compile --run --verbosity:0',
-      \ 'hook/sweep/files': '%S:p:r',
-      \ 'tempfile': '%{substitute(tempname(), ''\(\d\+\)$'', ''nim\1.nim'', '''')}'
-      \}
+" dein.vimのディレクトリ
+let s:dein_dir = expand('~/.vim/dein')
+let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
-" }
+" なければgit clone
+if !isdirectory(s:dein_repo_dir)
+  execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
+endif
+execute 'set runtimepath^=' . s:dein_repo_dir
 
-set splitright
+if dein#load_state(s:dein_dir)
+      call dein#begin(s:dein_dir)
+      call dein#load_toml(s:dein_dir . '/dein.toml')
+      call dein#end()
+      call dein#save_state()
 
-" 複数行のコメントアウト ctrl+k {
-NeoBundle 'tyru/caw.vim.git'
-nmap <C-K> <Plug>(caw:i:toggle)
-vmap <C-K> <Plug>(caw:i:toggle)
-"}
+      if dein#check_install()
+            call dein#install()
+      endif
+endif
 
-" htmlのマッチしている先を教えてくれる {
-NeoBundle 'valloric/matchtagalways'
-let g:mta_use_matchparen_group = 1
-let g:mta_filetypes = {
-                  \ 'html' : 1,
-                  \ 'php' : 1,
-                  \}
-"}
-
-" カーソル下のハイライトをトグルする space+mで検索 {
-NeoBundle "t9md/vim-quickhl"
-map <Space>m <Plug>(quickhl-manual-this)
-map <Space>M <Plug>(quickhl-manual-reset)
-"}
-
-" indent{
-NeoBundle 'nathanaelkane/vim-indent-guides'
-let g:indent_guides_start_level=2
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_guide_size = 1
-let g:indent_guides_auto_colors = 0
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=235
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=235
-"}
-
-" テキスト整形 visualモードで ga {
-NeoBundle 'junegunn/vim-easy-align'
-xmap ga <Plug>(EasyAlign)
-nmap ga <Plug>(EasyAlign)
-"}
-
-"ファイル構造 {
-NeoBundle 'scrooloose/nerdtree'
-let g:NERDTreeDirArrows = 1
-let g:NERDTreeDirArrowExpandable  = '>'
-let g:NERDTreeDirArrowCollapsible = '@'
-map <silent> :Vex<CR> :NERDTreeToggle<CR>
-"}
-
-" 画面サイズ変更 {
-NeoBundle 'simeji/winresizer'
-" }
-
-
-" language {
-NeoBundle 'vim-scripts/paredit.vim' "lisp
-NeoBundle 'rust-lang/rust.vim'      "rust
-NeoBundle 'fatih/vim-go'            "go
-NeoBundle 'hylang/vim-hy'           "hy
-"}
-
-" vlime {
-NeoBundle 'l04m33/vlime', {'rtp': 'vim/'} "lisp
-" たちあげ
-" ros run -- --load ~/.vim/Bundle/vlime/lisp/start-vlime.lisp
-" }
-
-"Colorizer {
-NeoBundle "chrisbra/Colorizer"
-map <Space>c :ColorToggle<CR>
-"]
-
-"colorscheme {
-NeoBundle 'nanotech/jellybeans.vim'
-NeoBundle 'w0ng/vim-hybrid'
-NeoBundle 'cocopon/iceberg.vim'
-NeoBundle 'christophermca/meta5'
-" }
-
-
-call neobundle#end()
-filetype plugin indent on
-NeoBundleCheck
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"python見つける
+let g:python_host_prog = '/usr/local/bin/python'
+let g:python3_host_prog =  '/usr/local/bin/python3'
 
 "インデントは6つ
 set expandtab "インデントは半角スペース
@@ -162,7 +62,7 @@ autocmd VimEnter,ColorScheme * highlight LineNr ctermfg=103 ctermbg=236
 " set t_Co=256
 syntax on
 set background=dark
-colorscheme meta5 "meta5 iceberg jellybeans hybrid solarized
+colorscheme dracula "meta5 iceberg jellybeans hybrid solarized
 
 "全角スペースをハイライト
 function! ZenkakuSpace()
@@ -202,7 +102,6 @@ set number
 "保存時に行末の空白行を削除
 autocmd BufWritePre * :%s/\s\+$//ge
 
-"cusurlineトグル
 map <silent> <C-c> :set cursorline! cursorcolumn!<CR>
 highlight CursorLine cterm=NONE ctermfg=0 ctermbg=6
 highlight CursorColumn cterm=NONE ctermfg=0 ctermbg=6
