@@ -28,6 +28,18 @@ repo = 'roxma/nvim-yarp'
 
 [[plugins]]
 repo = 'roxma/vim-hug-neovim-rpc'
+hook_add = '''
+      if has('pythonx')
+            let s:py = 'pythonx'
+            let s:pyeval = function('pyxeval')
+      elseif has('python3')
+            let s:py = 'python3'
+            let s:pyeval = function('py3eval')
+      else
+            let s:py = 'python'
+            let s:pyeval = function('pyeval')
+      endif
+'''
 
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
@@ -60,9 +72,14 @@ hook_add = """
             \},
             \'nim': {
                   \ 'command': 'nim',
-                  \ 'cmdopt': 'compile --run --verbosity:0',
+                  \ 'cmdopt': 'c -r -d:ssl --verbosity:0',
                   \ 'hook/sweep/files': '%S:p:r',
                   \ 'tempfile': '%{substitute(tempname(), ''\(\d\+\)$'', ''nim\1.nim'', '''')',
+            \},
+            \'swift': {
+                  \ 'command': 'xcrun',
+                  \ 'cmdopt': 'swift',
+                  \ 'exec': 'swift build',
             \},
       \}
 
@@ -125,6 +142,23 @@ repo = 'gko/vim-coloresque'
 [[plugins]] #画面サイズを編集 ctrl+e
 repo = 'simeji/winresizer'
 
+# Markdown {
+[[plugins]] # quote内のプログラムをシンタックスハイライトする
+repo = 'joker1007/vim-markdown-quote-syntax'
+on_ft = ['markdown','mkd', 'md']
+
+[[plugins]] # 編集中のMarkdownファイルのプレビューを作成する
+repo = 'kannokanno/previm'
+on_ft = ['markdown','mkd', "md"]
+
+[[plugins]] # プレビューをブラウザで開いてくれる
+repo = 'tyru/open-browser.vim'
+on_ft = ['markdown','mkd', "md"]
+hook_add = '''
+      map <silent> :MD<CR> :PrevimOpen<CR>
+'''
+# }
+
 [[plugins]] # lisp vlime
 repo = 'l04m33/vlime'
 rtp = 'vim/'
@@ -154,6 +188,36 @@ on_ft = 'hs'
 repo = 'zah/nim.vim'
 on_ft = 'nim'
 
+[[plugins]] # swift ハイライト
+repo = 'keith/swift.vim'
+on_ft = 'swift'
+
+[[plugins]] # swift syntax
+repo = 'kballard/vim-swift'
+on_ft = 'swift'
+
+[[plugins]] # swift 保管
+repo = 'landaire/deoplete-swift'
+on_ft = 'swift'
+
+[[plugins]] #unity
+repo = "OmniSharp/omnisharp-vim"
+on_ft = ["cs"]
+build = "xbuild server/OmniSharp.sln"
+
+[[plugins]] #unity
+repo = "LeafChage/omnisharp-vim"
+on_ft = ["cs"]
+build = "xbuild server/OmniSharp.sln"
+
+[[plugins]] #unity
+repo = "Robzz/deoplete-omnisharp"
+on_source = ["deoplete.nvim"]
+
+[[plugins]] #unity
+repo = 'tpope/vim-dispatch'
+on_ft = ["cs"]
+
 [[plugins]] # toml
 repo = 'cespare/vim-toml'
 on_ft = 'toml'
@@ -175,5 +239,3 @@ repo = 'christophermca/meta5'
 
 [[plugins]] # カラースキーマ
 repo = 'dracula/vim'
-
-

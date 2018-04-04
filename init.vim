@@ -2,16 +2,8 @@ if &compatible
   set nocompatible
 endif
 
-" Prepare .vim dir
-let s:vimdir = $HOME . "/.vim"
-if has("vim_starting")
-      if ! isdirectory(s:vimdir)
-            call system("mkdir " . s:vimdir)
-      endif
-endif
-
 " dein.vimのディレクトリ
-let s:dein_dir = expand('~/.vim/dein')
+let s:dein_dir = expand('~/.config/nvim/dein')
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
 " なければgit clone
@@ -31,12 +23,14 @@ if dein#load_state(s:dein_dir)
       endif
 endif
 
+filetype plugin indent on
+
 "python見つける
 let g:python_host_prog = '/usr/local/bin/python'
 let g:python3_host_prog =  '/usr/local/bin/python3'
 
 "インデントは6つ
-set expandtab "インデントは半角スペース
+ set expandtab "インデントは半角スペース
 set tabstop=6
 set shiftwidth=6
 set autoindent
@@ -62,12 +56,13 @@ autocmd VimEnter,ColorScheme * highlight LineNr ctermfg=103 ctermbg=236
 " set t_Co=256
 syntax on
 set background=dark
-colorscheme dracula "meta5 iceberg jellybeans hybrid solarized
+colorscheme meta5 "meta5 iceberg jellybeans hybrid solarized
 
 "全角スペースをハイライト
 function! ZenkakuSpace()
       highlight ZenkakuSpace cterm=reverse ctermfg=darkblue
 endfunction
+
 if has('syntax')
       augroup ZenkakuSpace
             autocmd!
