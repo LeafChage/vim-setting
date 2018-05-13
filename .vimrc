@@ -3,7 +3,7 @@ if &compatible
 endif
 
 " dein.vimのディレクトリ
-let s:dein_dir = expand('~/.config/nvim/dein')
+let s:dein_dir = expand('~/.vim/dein')
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
 " なければgit clone
@@ -29,10 +29,11 @@ filetype plugin indent on
 let g:python_host_prog = '/usr/local/bin/python'
 let g:python3_host_prog =  '/usr/local/bin/python3'
 
+
 "インデントは6つ
- set expandtab "インデントは半角スペース
-set tabstop=6
-set shiftwidth=6
+set expandtab "インデントは半角スペース
+set tabstop=4
+set shiftwidth=4
 set autoindent
 
 " filetype check
@@ -103,3 +104,27 @@ highlight CursorColumn cterm=NONE ctermfg=0 ctermbg=6
 
 autocmd VimEnter * imap <Nul> <esc>
 
+" 文字コード指定
+set fileformats=unix,dos,mac
+set fileencodings=utf-8,sjis
+
+
+" file罰のspace指定
+if has("autocmd")
+      filetype plugin on
+      filetype indent on
+      autocmd FileType c          setlocal sw=4 sts=4 ts=4 et
+      autocmd FileType html       setlocal sw=4 sts=4 ts=4 et
+      autocmd FileType ruby       setlocal sw=2 sts=2 ts=2 et
+      autocmd FileType javascript setlocal sw=4 sts=4 ts=4 et
+      autocmd FileType python     setlocal sw=4 sts=4 ts=4 et
+      autocmd FileType json       setlocal sw=4 sts=4 ts=4 et
+      autocmd FileType css        setlocal sw=4 sts=4 ts=4 et
+      autocmd FileType scss       setlocal sw=4 sts=4 ts=4 et
+      autocmd FileType sass       setlocal sw=4 sts=4 ts=4 et
+      autocmd FileType nim        setlocal sw=2 sts=2 ts=2 et
+      autocmd FileType go         setlocal sw=4 sts=4 ts=4 et
+      autocmd FileType rust       setlocal sw=4 sts=4 ts=4 et
+      autocmd FileType rs         setlocal sw=4 sts=4 ts=4 et
+      autocmd FileType lisp       setlocal sw=2 sts=2 ts=2 et
+endif

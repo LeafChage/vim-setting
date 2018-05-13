@@ -68,7 +68,7 @@ hook_add = """
             \      'split': 'vertical',
             \},
             \'rust': {
-            \      'exec' : 'cargo run'
+            \      'exec' : 'cargo check'
             \},
             \'nim': {
                   \ 'command': 'nim',
@@ -142,100 +142,134 @@ repo = 'gko/vim-coloresque'
 [[plugins]] #画面サイズを編集 ctrl+e
 repo = 'simeji/winresizer'
 
+[[plugins]] # j, k移動高速化
+repo = 'rhysd/accelerated-jk'
+
 # Markdown {
 [[plugins]] # quote内のプログラムをシンタックスハイライトする
 repo = 'joker1007/vim-markdown-quote-syntax'
-on_ft = ['markdown','mkd', 'md']
+on_ft = ['markdown']
 
 [[plugins]] # 編集中のMarkdownファイルのプレビューを作成する
 repo = 'kannokanno/previm'
-on_ft = ['markdown','mkd', "md"]
+on_ft = ['markdown']
 
 [[plugins]] # プレビューをブラウザで開いてくれる
 repo = 'tyru/open-browser.vim'
-on_ft = ['markdown','mkd', "md"]
+on_ft = ['markdown']
 hook_add = '''
       map <silent> :MD<CR> :PrevimOpen<CR>
 '''
 # }
 
-[[plugins]] # lisp vlime
-repo = 'l04m33/vlime'
-rtp = 'vim/'
-on_ft = 'lisp'
+#[ lisp
+[[plugins]]
+repo = "l04m33/vlime"
+rtp = "vim/"
+on_ft = "lisp"
 
-[[plugins]] # lisp
+[[plugins]]
 repo = 'vim-scripts/paredit.vim'
 on_ft = 'lisp'
+#]
 
-[[plugins]] # rust
+
+# rust {
+[[plugins]]
 repo = 'rust-lang/rust.vim'
-on_ft = 'rs'
+on_ft = ['rust']
+hook_source = '''
+let g:rustfmt_autosave = 1
+'''
 
-[[plugins]] # go
+[[plugins]]
+repo = 'racer-rust/vim-racer'
+on_ft = ['rust']
+hook_source = '''
+    let g:racer_cmd = "~/.cargo/bin/racer"
+    let $RUST_SRC_PATH="{$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+'''
+# }
+
+# go {
+[[plugins]]
 repo = 'fatih/vim-go'
-on_ft = 'go'
+on_ft = ['go']
+hook_add = '''
+let g:rustfmt_autosave = 1
+'''
+
+[[plugins]] # syntax
+repo = 'zchee/deoplete-go'
+on_ft = ['go']
+# }
 
 [[plugins]] # elixir
 repo = 'elixir-editors/vim-elixir'
-on_ft = 'ex'
+on_ft = ['elixir']
 
-[[plugins]] # haskell
-repo = 'kana/vim-filetype-haskell'
-on_ft = 'hs'
+# haskell {
+[[plugins]]
+repo = 'eagletmt/neco-ghc'
+on_ft = ['haskell']
+
+[[plugins]]
+repo = 'neovimhaskell/haskell-vim'
+on_ft = ['haskell']
+# }
 
 [[plugins]] # nim
 repo = 'zah/nim.vim'
-on_ft = 'nim'
+on_ft = ['nim']
 
-[[plugins]] # swift ハイライト
+# swift {
+[[plugins]] # ハイライト
 repo = 'keith/swift.vim'
-on_ft = 'swift'
+on_ft = ['swift']
 
-[[plugins]] # swift syntax
+[[plugins]] # syntax
 repo = 'kballard/vim-swift'
-on_ft = 'swift'
+on_ft = ['swift']
 
-[[plugins]] # swift 保管
+[[plugins]] # 保管
 repo = 'landaire/deoplete-swift'
-on_ft = 'swift'
+on_ft = ['swift']
+# }
 
-[[plugins]] #unity
-repo = "OmniSharp/omnisharp-vim"
-on_ft = ["cs"]
-build = "xbuild server/OmniSharp.sln"
+# ruby {
+[[plugins]] # end補完
+repo = 'tpope/vim-endwise'
+on_ft = ["ruby"]
 
-[[plugins]] #unity
-repo = "LeafChage/omnisharp-vim"
-on_ft = ["cs"]
-build = "xbuild server/OmniSharp.sln"
+[[plugins]] # local
+repo = 'todesking/ruby_hl_lvar.vim'
+on_ft = ["ruby"]
 
-[[plugins]] #unity
-repo = "Robzz/deoplete-omnisharp"
-on_source = ["deoplete.nvim"]
-
-[[plugins]] #unity
-repo = 'tpope/vim-dispatch'
-on_ft = ["cs"]
+[[plugins]] # synatax
+repo = 'marcus/rsense'
+on_ft = ["ruby"]
+# }
 
 [[plugins]] # toml
 repo = 'cespare/vim-toml'
-on_ft = 'toml'
+on_ft = ['toml']
 
-[[plugins]] # カラースキーマ
+#カラースキーマ {
+[[plugins]]
 repo = 'w0ng/vim-hybrid'
 
-[[plugins]] # カラースキーマ
+[[plugins]]
 repo = 'nanotech/jellybeans.vim'
 
-[[plugins]] # カラースキーマ
+[[plugins]]
 repo = 'w0ng/vim-hybrid'
 
-[[plugins]] # カラースキーマ
+[[plugins]]
 repo = 'cocopon/iceberg.vim'
 
-[[plugins]] # カラースキーマ
+[[plugins]]
 repo = 'christophermca/meta5'
 
-[[plugins]] # カラースキーマ
+[[plugins]]
 repo = 'dracula/vim'
+#}
