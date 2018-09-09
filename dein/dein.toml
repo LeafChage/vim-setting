@@ -81,6 +81,9 @@ hook_add = """
                   \ 'cmdopt': 'swift',
                   \ 'exec': 'swift build',
             \},
+            \'elm': {
+                  \ 'exec': "elm-make %s --output elm.js",
+            \},
       \}
 
       set splitright
@@ -170,7 +173,7 @@ on_ft = "lisp"
 
 [[plugins]]
 repo = 'vim-scripts/paredit.vim'
-on_ft = 'lisp'
+on_ft = ['lisp', 'clojure']
 #]
 
 
@@ -183,11 +186,16 @@ let g:rustfmt_autosave = 1
 '''
 
 [[plugins]]
-repo = 'racer-rust/vim-racer'
-on_ft = ['rust']
+repo = 'sebastianmarkow/deoplete-rust'
+on_ft = 'rust'
+depends = ['deoplete.nvim']
 hook_source = '''
-    let g:racer_cmd = "~/.cargo/bin/racer"
-    let $RUST_SRC_PATH="{$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+    let g:deoplete#sources#rust#racer_binary='/usr/local/bin/racer'
+    let g:deoplete#sources#rust#rust_source_path='/usr/local/Cellar/rust/1.25.0/lib/rustlib/manifest-rustc}'
+    let g:deoplete#sources#rust#show_duplicates=1
+    let g:deoplete#sources#rust#disable_keymap=1
+    nmap <buffer> gd <plug>DeopleteRustGoToDefinitionDefault
+    nmap <buffer> K  <plug>DeopleteRustShowDocumentation
 '''
 # }
 
@@ -195,9 +203,6 @@ hook_source = '''
 [[plugins]]
 repo = 'fatih/vim-go'
 on_ft = ['go']
-hook_add = '''
-let g:rustfmt_autosave = 1
-'''
 
 [[plugins]] # syntax
 repo = 'zchee/deoplete-go'
@@ -234,6 +239,35 @@ on_ft = ['swift']
 [[plugins]] # 保管
 repo = 'landaire/deoplete-swift'
 on_ft = ['swift']
+# }
+
+# clojure {
+[[plugins]]
+repo = 'tpope/vim-fireplace'
+on_ft = ['clojure']
+# }
+
+# elm {
+# npm install -g elm
+# npm install -g elm-test
+# npm install -g elm-oracle
+# npm install -g elm-format
+[[plugins]]
+repo = 'elmcast/elm-vim'
+on_ft = ["elm"]
+# }
+
+# Ocaml {
+# }
+
+# HTML {
+[[plugins]]
+repo = "mattn/emmet-vim"
+on_ft = ["html", "tpl"]
+add_hook = '''
+let g:user_emmet_leader_key='<c-y>'
+'''
+
 # }
 
 # ruby {

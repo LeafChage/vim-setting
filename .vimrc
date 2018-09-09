@@ -108,6 +108,10 @@ autocmd VimEnter * imap <Nul> <esc>
 set fileformats=unix,dos,mac
 set fileencodings=utf-8,sjis
 
+" Ocaml
+let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+execute "set rtp+=" . g:opamshare . "/merlin/vim"
+
 
 " file罰のspace指定
 if has("autocmd")
@@ -116,7 +120,7 @@ if has("autocmd")
       autocmd FileType c          setlocal sw=4 sts=4 ts=4 et
       autocmd FileType html       setlocal sw=4 sts=4 ts=4 et
       autocmd FileType ruby       setlocal sw=2 sts=2 ts=2 et
-      autocmd FileType javascript setlocal sw=4 sts=4 ts=4 et
+      autocmd FileType javascript setlocal sw=2 sts=2 ts=2 et
       autocmd FileType python     setlocal sw=4 sts=4 ts=4 et
       autocmd FileType json       setlocal sw=4 sts=4 ts=4 et
       autocmd FileType css        setlocal sw=4 sts=4 ts=4 et
