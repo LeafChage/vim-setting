@@ -23,12 +23,10 @@ if dein#load_state(s:dein_dir)
       endif
 endif
 
-filetype plugin indent on
-
-"python見つける
+let g:python_host_prog = '/usr/local/bin/python3'
 let g:python_host_prog = '/usr/local/bin/python'
-let g:python3_host_prog =  '/usr/local/bin/python3'
 
+filetype plugin indent on
 
 "インデントは6つ
 set expandtab "インデントは半角スペース
@@ -57,7 +55,8 @@ autocmd VimEnter,ColorScheme * highlight LineNr ctermfg=103 ctermbg=236
 " set t_Co=256
 syntax on
 set background=dark
-colorscheme meta5 "meta5 iceberg jellybeans hybrid solarized
+set termguicolors
+colorscheme hybrid "meta5 iceberg hybrid blame dracula
 
 "全角スペースをハイライト
 function! ZenkakuSpace()
@@ -93,7 +92,7 @@ set laststatus=2
 set nocursorline
 
 "現在の行表示"
-set number
+" set number
 
 "保存時に行末の空白行を削除
 autocmd BufWritePre * :%s/\s\+$//ge
@@ -108,27 +107,39 @@ autocmd VimEnter * imap <Nul> <esc>
 set fileformats=unix,dos,mac
 set fileencodings=utf-8,sjis
 
-" Ocaml
-let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
-execute "set rtp+=" . g:opamshare . "/merlin/vim"
-
-
-" file罰のspace指定
+" fileのspace指定
 if has("autocmd")
       filetype plugin on
       filetype indent on
-      autocmd FileType c          setlocal sw=4 sts=4 ts=4 et
-      autocmd FileType html       setlocal sw=4 sts=4 ts=4 et
-      autocmd FileType ruby       setlocal sw=2 sts=2 ts=2 et
-      autocmd FileType javascript setlocal sw=2 sts=2 ts=2 et
-      autocmd FileType python     setlocal sw=4 sts=4 ts=4 et
-      autocmd FileType json       setlocal sw=4 sts=4 ts=4 et
-      autocmd FileType css        setlocal sw=4 sts=4 ts=4 et
-      autocmd FileType scss       setlocal sw=4 sts=4 ts=4 et
-      autocmd FileType sass       setlocal sw=4 sts=4 ts=4 et
-      autocmd FileType nim        setlocal sw=2 sts=2 ts=2 et
-      autocmd FileType go         setlocal sw=4 sts=4 ts=4 et
-      autocmd FileType rust       setlocal sw=4 sts=4 ts=4 et
-      autocmd FileType rs         setlocal sw=4 sts=4 ts=4 et
-      autocmd FileType lisp       setlocal sw=2 sts=2 ts=2 et
+
+      au BufRead,BufNewFile *.es6 setfiletype javascript
+      au BufRead,BufNewFile *.ros setfiletype lisp
+      au BufRead,BufNewFile *.asd setfiletype lisp
+      au BufRead,BufNewFile *.tsx setfiletype typescript
+      au BufRead,BufNewFile *.ts setfiletype typescript
+      au BufRead,BufNewFile *.phtml setfiletype html
+
+      au FileType c          setlocal sw=4 sts=4 ts=4 et
+      au FileType html       setlocal sw=4 sts=4 ts=4 et
+      au FileType ruby       setlocal sw=2 sts=2 ts=2 et
+      au FileType yaml       setlocal sw=2 sts=2 ts=2 et
+      au FileType javascript setlocal sw=2 sts=2 ts=2 et
+      au FileType typescript setlocal sw=2 sts=2 ts=2 et
+      au FileType python     setlocal sw=4 sts=4 ts=4 et
+      au FileType json       setlocal sw=4 sts=4 ts=4 et
+      au FileType css        setlocal sw=4 sts=4 ts=4 et
+      au FileType scss       setlocal sw=4 sts=4 ts=4 et
+      au FileType sass       setlocal sw=4 sts=4 ts=4 et
+      au FileType nim        setlocal sw=2 sts=2 ts=2 et
+      au FileType go         setlocal sw=4 sts=4 ts=4 et
+      au FileType rust       setlocal sw=4 sts=4 ts=4 et
+      au FileType rs         setlocal sw=4 sts=4 ts=4 et
+      au FileType lisp       setlocal sw=2 sts=2 ts=2 et
 endif
+
+let mapleader = "\<Space>"
+nnoremap <Leader>w :w<CR>
+nnoremap <Leader>q :q<CR>
+nnoremap <Leader>wq :wq<CR>
+
+

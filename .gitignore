@@ -1,0 +1,5 @@
+dein/.cache
+dein/repos
+.DS_Store
+dein/cache_vim
+dein/state_vim.vim
