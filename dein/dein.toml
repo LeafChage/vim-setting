@@ -22,29 +22,34 @@ repo = "airblade/vim-gitgutter"
 repo = "tpope/vim-fugitive"
 # }
 
+[[plugins]]
+repo = 'vim-airline/vim-airline'
+
 [[plugins]] ## grep
 repo = 'dyng/ctrlsf.vim'
 hook_add = '''
     nmap <silent> <C-f> :CtrlSF<Space>
     imap <silent> <C-f> :CtrlSF<Space>
 '''
-
 [[plugins]]
 repo = 'ctrlpvim/ctrlp.vim'
 
-
 [[plugins]]
 repo = 'Shougo/unite.vim'
+hook_add = '''
+let g:unite_enable_start_insert=1
+let g:unite_source_file_mru_limit = 200
+nmap <Leader>e :Unite file_mru<CR><C-C>
+'''
 
 [[plugins]]
-repo = "/Users/kusanagi/.vim/dein/repos/github.com/LeafChage/current-time-vim"
+repo = 'Shougo/neomru.vim'
 
 [[plugins]]
 repo = 'Shougo/neco-syntax'
 
 [[plugins]]
 repo = 'ujihisa/neco-look'
-
 [[plugins]]
 repo = 'roxma/nvim-yarp'
 depends = ['roxma/vim-hug-neovim-rpc']
@@ -98,49 +103,49 @@ hook_add = '''
 [[plugins]] # スクリプト実行 Space-r
 repo = 'thinca/vim-quickrun'
 hook_add = """
-      nnoremap <Leader>R :QuickRun<CR>
-      let g:syntastic_javascript_checkers = ['eslint']
+nnoremap :run<CR> :QuickRun<CR>
+let g:syntastic_javascript_checkers = ['eslint']
 
-      let g:quickrun_config = {
-          \'_': {
-              \  'split': 'vertical',
-              \  'runner': 'vimproc',
-              \  'runner/vimproc/updatetime': 60,
-              \  'hook/time/enable': 1,
-              \  'hook/time/dest': "",
-              \  'outputter/buffer/split': 'vertical',
-              \  'outputter/buffer/close_on_empty' : 1,
-          \},
-          \'rust': {
-          \      'exec' : 'cargo check'
-          \},
-          \'nim': {
-                \ 'command': 'nim',
-                \ 'cmdopt': 'c -r -d:ssl --verbosity:0',
-                \ 'hook/sweep/files': '%S:p:r',
-                \ 'tempfile': '%{substitute(tempname(), ''\(\d\+\)$'', ''nim\1.nim'', '''')',
-          \},
-          \'swift': {
-                \ 'command': 'xcrun',
-                \ 'cmdopt': 'swift',
-                \ 'exec': 'swift build',
-          \},
-          \'elm': {
-                \ 'exec': "elm-make %s --output elm.js",
-          \},
-          \'purescript': {
-                \ 'exec': "pulp run",
-          \},
-           \'fsharp': {
-               \ 'command': 'dotnet run',
-               \ 'tempfile': '%{tempname()}.fsx',
-               \ 'runner': 'concurrent_process',
-               \ 'runner/concurrent_process/load': '#load "%S";;',
-               \ 'runner/concurrent_process/prompt': '> '
-           \},
-        \}
-    set splitright
-    """
+let g:quickrun_config = {
+  \'_': {
+      \  'split': 'vertical',
+      \  'runner': 'vimproc',
+      \  'runner/vimproc/updatetime': 60,
+      \  'hook/time/enable': 1,
+      \  'hook/time/dest': "",
+      \  'outputter/buffer/split': 'vertical',
+      \  'outputter/buffer/close_on_empty' : 1,
+  \},
+  \'rust': {
+  \      'exec' : 'cargo check'
+  \},
+  \'nim': {
+        \ 'command': 'nim',
+        \ 'cmdopt': 'c -r -d:ssl --verbosity:0',
+        \ 'hook/sweep/files': '%S:p:r',
+        \ 'tempfile': '%{substitute(tempname(), ''\(\d\+\)$'', ''nim\1.nim'', '''')',
+  \},
+  \'swift': {
+        \ 'command': 'xcrun',
+        \ 'cmdopt': 'swift',
+        \ 'exec': 'swift build',
+  \},
+  \'elm': {
+        \ 'exec': "elm-make %s --output elm.js",
+  \},
+  \'purescript': {
+        \ 'exec': "pulp run",
+  \},
+   \'fsharp': {
+       \ 'command': 'dotnet run',
+       \ 'tempfile': '%{tempname()}.fsx',
+       \ 'runner': 'concurrent_process',
+       \ 'runner/concurrent_process/load': '#load "%S";;',
+       \ 'runner/concurrent_process/prompt': '> '
+   \},
+\}
+set splitright
+"""
 
 # web {
 
@@ -170,7 +175,6 @@ hook_add = '''
       map <Space>m <Plug>(quickhl-manual-this)
       map <Space>M <Plug>(quickhl-manual-reset)
 '''
-
 
 [[plugins]] # indent
 repo = 'nathanaelkane/vim-indent-guides'
@@ -234,28 +238,26 @@ on_ft = ['markdown']
 
 # lisp {
 [[plugins]]
-repo = 'kovisoft/slimv'
-on_ft = ['lisp']
+repo = 'l04m33/vlime'
+on_ft = 'lisp'
+rtp = 'vim'
 hook_source = '''
-let g:slimv_lisp='/usr/local/bin/ros run'
-let g:slimv_impl='sbcl'
-let g:slimv_swank_cmd = '/usr/local/bin/ros run --load $HOME/.roswell/lisp/slime/2017.12.27/start-swank.lisp'
-let g:swank_port = 4005
-let g:lisp_rainbow=1
-
-" 現在のファイルだけを対象としてタグファイルを作成
-function! s:generate_lisp_tags()
-  let g:slimv_ctags='ctags -a -f '.$HOME.'/.tags/lisp.tags '.expand('%:p').' --language-force=Lisp'
-  call SlimvGenerateTags()
+let g:vlime_leader = ","
+let g:vlime_cl_impl = "ros"
+function! VlimeBuildServerCommandFor_ros(vlime_loader, vlime_eval) abort
+    return ["ros", "run",
+      \ "--load", a:vlime_loader,
+      \ "--eval", a:vlime_eval]
 endfunction
-command! -nargs=0 GenerateLispTags call <SID>generate_lisp_tags()
 
-" 再帰的にタグファイルを作成
-function! s:generate_lisp_tags_recursive()
-  let g:slimv_ctags='ctags -a -f '.$HOME.'/.tags/lisp.tags -R '.expand('%:p:h').' --language-force=Lisp'
-  call SlimvGenerateTags()
+let g:vlime_neovim_connector = "nc"
+function! VlimeBuildConnectorCommandFor_nc(host, port, timeout)
+    if type(a:timeout) == type(v:null)
+      return ['nc', a:host, string(a:port)]
+    else
+      return ['nc', '-w', string(a:timeout / 1000.0), a:host, string(a:port)]
+    endif
 endfunction
-command! -nargs=0 GenerateLispTagsRecursive call <SID>generate_lisp_tags_recursive()
 '''
 # }
 
@@ -312,14 +314,50 @@ repo = "Robzz/deoplete-omnisharp"
 on_source = ["deoplete.nvim", "omnisharp-vim"]
 #}
 
-# go {
-[[plugins]]
-repo = 'fatih/vim-go'
-on_ft = ['go']
 
-[[plugins]] # syntax
+# go {
+[[plugins]]  # go command use as vim command :GoBuild, :GoInstall
+
+# EXECUTE `:GoInstallBinaries` AT FIRST!
+
+# it's take a long time to go get some go sources & build them.
+
+repo = 'fatih/vim-go'
+on_ft = 'go'
+hook_add = '''
+    let g:go_bin_path = $GOPATH.'/bin'
+
+    autocmd FileType go set autowrite
+    autocmd FileType go nmap <leader>r <Plug>(go-run)
+    autocmd FileType go nmap <leader>t <Plug>(go-test)
+    autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+    function! s:build_go_files()
+      let l:file = expand('%')
+      if l:file =~# '^\f\+_test\.go$'
+        call go#test#Test(0, 1)
+      elseif l:file =~# '^\f\+\.go$'
+        call go#cmd#Build(0)
+      endif
+    endfunction
+    autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+    let g:go_term_mode = "split"
+    let g:go_fmt_command = "goimports"
+    let g:go_addtags_transform = "camelcase"
+    let g:go_metalinter_autosave = 1
+    let g:go_auto_type_info = 1
+    autocmd FileType go set updatetime=100
+    autocmd FileType go nmap <Leader>s :GoSameIdsToggle<CR>
+    let g:go_play_open_browser = 0
+'''
+
+[[plugins]]  # go completion
 repo = 'zchee/deoplete-go'
-on_ft = ['go']
+build = 'make'
+on_ft = 'go'
+depends = ['deoplete.nvim']
+hook_source = '''
+    let g:deoplete#sources#go#gocode_binary = $GOPATH . '/bin/gocode'
+'''
 # }
 
 [[plugins]] # elixir
@@ -428,7 +466,6 @@ on_ft = ['javascript']
 repo = 'flowtype/vim-flow'
 on_ft = ['javascript']
 build = 'npm install -g flow-bin'
-
 #}
 
 # ruby {
@@ -449,7 +486,6 @@ on_ft = ["ruby"]
 repo = 'udalov/kotlin-vim'
 on_ft = ['kotlin']
 # }
-
 
 # purescript {
 [[plugins]]
@@ -502,4 +538,13 @@ repo = 'christophermca/meta5'
 
 [[plugins]]
 repo = 'dracula/vim'
+
+[[plugins]]
+repo = 'joshdick/onedark.vim'
+
+[[plugins]]
+repo = 'thinkpixellab/flatland'
+
+[[plugins]]
+repo = 'morhetz/gruvbox'
 #}
