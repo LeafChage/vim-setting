@@ -147,5 +147,3 @@ nmap <Leader>- :split<CR>
 imap <Leader>zj <-
 imap <Leader>zk ->
 
-"clipboard
-set clipboard+=unnamed
