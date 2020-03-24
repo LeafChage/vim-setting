@@ -26,7 +26,6 @@ if dein#load_state(s:dein_dir)
 endif
 
 let g:python_host_prog = '/usr/local/bin/python3'
-let g:python_host_prog = '/usr/local/bin/python'
 
 filetype plugin indent on
 
