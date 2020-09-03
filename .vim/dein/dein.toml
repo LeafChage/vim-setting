@@ -23,14 +23,18 @@ repo = "tpope/vim-fugitive"
 # }
 
 [[plugins]]
+repo="tyru/skk.vim"
+
+[[plugins]]
 repo = 'vim-airline/vim-airline'
 
 [[plugins]] ## grep
 repo = 'dyng/ctrlsf.vim'
 hook_add = '''
-    nmap <silent> <C-f> :CtrlSF<Space>
-    imap <silent> <C-f> :CtrlSF<Space>
+nmap <silent> <C-f> :CtrlSF<Space>
+imap <silent> <C-f> :CtrlSF<Space>
 '''
+
 [[plugins]]
 repo = 'ctrlpvim/ctrlp.vim'
 
@@ -82,22 +86,22 @@ let g:deoplete#enable_at_startup = 1
 [[plugins]] # 構文エラーチェック
 repo = 'w0rp/ale'
 hook_add = '''
-    let g:ale_sign_column_always = 1
-    let g:ale_sign_error = '!!'
-    let g:ale_sign_warning = '--'
-    let g:ale_echo_msg_error_str = 'E'
-    let g:ale_echo_msg_warning_str = 'W'
-    let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_sign_column_always = 1
+let g:ale_sign_error = '!!'
+let g:ale_sign_warning = '--'
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
-    let g:ale_lint_on_save = 1
-    let g:ale_lint_on_enter = 0
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_enter = 0
 
-    nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-    nmap <silent> <C-j> <Plug>(ale_next_wrap)
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
-    let g:ale_linters = {
-    \ 'cs': ['OmniSharp']
-    \}
+let g:ale_linters = {
+\ 'cs': ['OmniSharp']
+\}
 '''
 
 [[plugins]] # スクリプト実行 Space-r
@@ -107,42 +111,42 @@ nnoremap :run<CR> :QuickRun<CR>
 let g:syntastic_javascript_checkers = ['eslint']
 
 let g:quickrun_config = {
-  \'_': {
-      \  'split': 'vertical',
-      \  'runner': 'vimproc',
-      \  'runner/vimproc/updatetime': 60,
-      \  'hook/time/enable': 1,
-      \  'hook/time/dest': "",
-      \  'outputter/buffer/split': 'vertical',
-      \  'outputter/buffer/close_on_empty' : 1,
-  \},
-  \'rust': {
-  \      'exec' : 'cargo check'
-  \},
-  \'nim': {
-        \ 'command': 'nim',
-        \ 'cmdopt': 'c -r -d:ssl --verbosity:0',
-        \ 'hook/sweep/files': '%S:p:r',
-        \ 'tempfile': '%{substitute(tempname(), ''\(\d\+\)$'', ''nim\1.nim'', '''')',
-  \},
-  \'swift': {
-        \ 'command': 'xcrun',
-        \ 'cmdopt': 'swift',
-        \ 'exec': 'swift build',
-  \},
-  \'elm': {
-        \ 'exec': "elm-make %s --output elm.js",
-  \},
-  \'purescript': {
-        \ 'exec': "pulp run",
-  \},
-   \'fsharp': {
-       \ 'command': 'dotnet run',
-       \ 'tempfile': '%{tempname()}.fsx',
-       \ 'runner': 'concurrent_process',
-       \ 'runner/concurrent_process/load': '#load "%S";;',
-       \ 'runner/concurrent_process/prompt': '> '
-   \},
+\'_': {
+\  'split': 'vertical',
+\  'runner': 'vimproc',
+\  'runner/vimproc/updatetime': 60,
+\  'hook/time/enable': 1,
+\  'hook/time/dest': "",
+\  'outputter/buffer/split': 'vertical',
+\  'outputter/buffer/close_on_empty' : 1,
+\},
+\'rust': {
+\      'exec' : 'cargo check'
+\},
+\'nim': {
+\ 'command': 'nim',
+\ 'cmdopt': 'c -r -d:ssl --verbosity:0',
+\ 'hook/sweep/files': '%S:p:r',
+\ 'tempfile': '%{substitute(tempname(), ''\(\d\+\)$'', ''nim\1.nim'', '''')',
+\},
+\'swift': {
+\ 'command': 'xcrun',
+\ 'cmdopt': 'swift',
+\ 'exec': 'swift build',
+\},
+\'elm': {
+\ 'exec': "elm-make %s --output elm.js",
+\},
+\'purescript': {
+\ 'exec': "pulp run",
+\},
+\'fsharp': {
+\ 'command': 'dotnet run',
+\ 'tempfile': '%{tempname()}.fsx',
+\ 'runner': 'concurrent_process',
+\ 'runner/concurrent_process/load': '#load "%S";;',
+\ 'runner/concurrent_process/prompt': '> '
+\},
 \}
 set splitright
 """
@@ -153,8 +157,8 @@ set splitright
 repo = 'valloric/matchtagalways'
 on_ft = ['html', 'php']
 hook_souce = '''
-      let g:mta_use_matchparen_group = 1
-      let g:mta_filetypes = { 'html' : 1, 'php' : ,1 }
+let g:mta_use_matchparen_group = 1
+let g:mta_filetypes = { 'html' : 1, 'php' : ,1 }
 '''
 
 [[plugins]]
@@ -165,41 +169,41 @@ on_ft = ['scss']
 [[plugins]] # 複数行のコメントアウト ctrl+z
 repo = 'tyru/caw.vim.git'
 hook_add = '''
-      nmap <C-z> <Plug>(caw:i:toggle)
-      vmap <C-z> <Plug>(caw:i:toggle)
+nmap <C-z> <Plug>(caw:i:toggle)
+vmap <C-z> <Plug>(caw:i:toggle)
 '''
 
 [[plugins]] # カーソル下のハイライトをトグルする space+mで検索
 repo = 't9md/vim-quickhl'
 hook_add = '''
-      map <Space>m <Plug>(quickhl-manual-this)
-      map <Space>M <Plug>(quickhl-manual-reset)
+map <Space>m <Plug>(quickhl-manual-this)
+map <Space>M <Plug>(quickhl-manual-reset)
 '''
 
 [[plugins]] # indent
 repo = 'nathanaelkane/vim-indent-guides'
 hook_add = '''
-      let g:indent_guides_start_level=2
-      let g:indent_guides_enable_on_vim_startup = 1
-      let g:indent_guides_guide_size = 1
-      let g:indent_guides_auto_colors = 0
-      autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=235
-      autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=235
+let g:indent_guides_start_level=2
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_guide_size = 1
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=235
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=235
 '''
 
 [[plugins]] # テキスト整形 visualモードで ga
 repo = 'junegunn/vim-easy-align'
 hook_add = '''
-      xmap ga <Plug>(EasyAlign)
-      nmap ga <Plug>(EasyAlign)
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
 '''
 
 [[plugins]] #ファイル構造
 repo = 'scrooloose/nerdtree'
 hook_add = '''
-      let NERDTreeShowHidden=1
-      let g:NERDTreeDirArrows = 1
-      map <silent> <C-n> :NERDTreeToggle<CR>
+let NERDTreeShowHidden=1
+let g:NERDTreeDirArrows = 1
+map <silent> <C-n> :NERDTreeToggle<CR>
 '''
 
 [[plugins]] #color確認
@@ -210,10 +214,10 @@ repo = 'simeji/winresizer'
 
 [[plugins]] # j, k移動高速化
 repo = 'rhysd/accelerated-jk'
-add_hook = '''
-nmap j <Plug>(accelerated_jk_gj)
-nmap k <Plug>(accelerated_jk_gk)
-'''
+    add_hook = '''
+    nmap j <Plug>(accelerated_jk_gj)
+    nmap k <Plug>(accelerated_jk_gk)
+    '''
 
 # Markdown {
 [[plugins]] # quote内のプログラムをシンタックスハイライトする
@@ -228,7 +232,7 @@ on_ft = ['markdown']
 repo = 'tyru/open-browser.vim'
 on_ft = ['markdown']
 hook_add = '''
-      map <silent> :MD<CR> :PrevimOpen<CR>
+map <silent> :MD<CR> :PrevimOpen<CR>
 '''
 
 [[plugins]] # \tm でtoggle
@@ -246,18 +250,18 @@ let g:vlime_leader = ","
 let g:vlime_cl_impl = "ros"
 let g:vlime_cl_impl = "sbcl"
 function! VlimeBuildServerCommandFor_ros(vlime_loader, vlime_eval) abort
-    return ["ros", "run",
-      \ "--load", a:vlime_loader,
-      \ "--eval", a:vlime_eval]
+return ["ros", "run",
+\ "--load", a:vlime_loader,
+\ "--eval", a:vlime_eval]
 endfunction
 
 let g:vlime_neovim_connector = "nc"
 function! VlimeBuildConnectorCommandFor_nc(host, port, timeout)
-    if type(a:timeout) == type(v:null)
-      return ['nc', a:host, string(a:port)]
-    else
-      return ['nc', '-w', string(a:timeout / 1000.0), a:host, string(a:port)]
-    endif
+if type(a:timeout) == type(v:null)
+return ['nc', a:host, string(a:port)]
+else
+return ['nc', '-w', string(a:timeout / 1000.0), a:host, string(a:port)]
+endif
 endfunction
 '''
 # }
@@ -276,12 +280,12 @@ repo = 'sebastianmarkow/deoplete-rust'
 on_ft = ['rust']
 depends = ['deoplete.nvim']
 hook_source = '''
-    let g:deoplete#sources#rust#racer_binary='/usr/local/bin/racer'
-    let g:deoplete#sources#rust#rust_source_path='$(rustc --print sysroot)/lib/rustlib/manifest-rustc'
-    let g:deoplete#sources#rust#show_duplicates=1
-    let g:deoplete#sources#rust#disable_keymap=1
-    nmap <buffer> gd <plug>DeopleteRustGoToDefinitionDefault
-    nmap <buffer> K  <plug>DeopleteRustShowDocumentation
+let g:deoplete#sources#rust#racer_binary='/usr/local/bin/racer'
+let g:deoplete#sources#rust#rust_source_path='$(rustc --print sysroot)/lib/rustlib/manifest-rustc'
+let g:deoplete#sources#rust#show_duplicates=1
+let g:deoplete#sources#rust#disable_keymap=1
+nmap <buffer> gd <plug>DeopleteRustGoToDefinitionDefault
+nmap <buffer> K  <plug>DeopleteRustShowDocumentation
 '''
 # }
 
@@ -291,9 +295,9 @@ repo = "OmniSharp/omnisharp-vim"
 on_ft = ["cs"]
 build = "xbuild server/OmniSharp.sln"
 hook_add = '''
-    let g:OmniSharp_server_type='roslyn'
-    let g:OmniSharp_timeout = 5
-    let g:OmniSharp_selector_ui = 'unite'
+let g:OmniSharp_server_type='roslyn'
+let g:OmniSharp_timeout = 5
+let g:OmniSharp_selector_ui = 'unite'
 '''
 
 hook_post_source = '''
@@ -326,29 +330,29 @@ on_source = ["deoplete.nvim", "omnisharp-vim"]
 repo = 'fatih/vim-go'
 on_ft = 'go'
 hook_add = '''
-    let g:go_bin_path = $GOPATH.'/bin'
+let g:go_bin_path = $GOPATH.'/bin'
 
-    autocmd FileType go set autowrite
-    autocmd FileType go nmap <leader>r <Plug>(go-run)
-    autocmd FileType go nmap <leader>t <Plug>(go-test)
-    autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
-    function! s:build_go_files()
-      let l:file = expand('%')
-      if l:file =~# '^\f\+_test\.go$'
-        call go#test#Test(0, 1)
-      elseif l:file =~# '^\f\+\.go$'
-        call go#cmd#Build(0)
-      endif
-    endfunction
-    autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
-    let g:go_term_mode = "split"
-    let g:go_fmt_command = "goimports"
-    let g:go_addtags_transform = "camelcase"
-    let g:go_metalinter_autosave = 1
-    let g:go_auto_type_info = 1
-    autocmd FileType go set updatetime=100
-    autocmd FileType go nmap <Leader>s :GoSameIdsToggle<CR>
-    let g:go_play_open_browser = 0
+autocmd FileType go set autowrite
+autocmd FileType go nmap <leader>r <Plug>(go-run)
+autocmd FileType go nmap <leader>t <Plug>(go-test)
+autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+function! s:build_go_files()
+let l:file = expand('%')
+if l:file =~# '^\f\+_test\.go$'
+call go#test#Test(0, 1)
+elseif l:file =~# '^\f\+\.go$'
+call go#cmd#Build(0)
+endif
+endfunction
+autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+let g:go_term_mode = "split"
+let g:go_fmt_command = "goimports"
+let g:go_addtags_transform = "camelcase"
+let g:go_metalinter_autosave = 1
+let g:go_auto_type_info = 1
+autocmd FileType go set updatetime=100
+autocmd FileType go nmap <Leader>s :GoSameIdsToggle<CR>
+let g:go_play_open_browser = 0
 '''
 
 [[plugins]]  # go completion
@@ -357,7 +361,7 @@ build = 'make'
 on_ft = 'go'
 depends = ['deoplete.nvim']
 hook_source = '''
-    let g:deoplete#sources#go#gocode_binary = $GOPATH . '/bin/gocode'
+let g:deoplete#sources#go#gocode_binary = $GOPATH . '/bin/gocode'
 '''
 # }
 
@@ -549,3 +553,5 @@ repo = 'thinkpixellab/flatland'
 [[plugins]]
 repo = 'morhetz/gruvbox'
 #}
+
+
