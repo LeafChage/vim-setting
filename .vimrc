@@ -51,7 +51,7 @@ set nowrap
 " autocmd VimEnter,ColorScheme * highlight Visual cterm=NONE ctermfg=white ctermbg=darkcyan
 " autocmd VimEnter,ColorScheme * highlight Comment ctermfg=242
 " autocmd VimEnter,ColorScheme * highlight LineNr ctermfg=103 ctermbg=236
-"autocmd VimEnter,ColorScheme * highlight SpecialKey ctermfg=239
+" autocmd VimEnter,ColorScheme * highlight SpecialKey ctermfg=239
 
 syntax on
 set t_Co=256
@@ -120,6 +120,7 @@ if has("autocmd")
     au BufRead,BufNewFile *.tsx setfiletype typescript
     au BufRead,BufNewFile *.ts setfiletype typescript
     au BufRead,BufNewFile *.phtml setfiletype html
+    au BufRead,BufNewFile *.conf setfiletype conf
 
     au FileType c          setlocal sw=4 sts=4 ts=4 et
     au FileType html       setlocal sw=4 sts=4 ts=4 et
