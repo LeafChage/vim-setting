@@ -121,7 +121,7 @@ let g:quickrun_config = {
 \  'outputter/buffer/close_on_empty' : 1,
 \},
 \'rust': {
-\      'exec' : 'cargo check'
+\      'exec' : 'cargo run'
 \},
 \'nim': {
 \ 'command': 'nim',
@@ -280,8 +280,9 @@ repo = 'sebastianmarkow/deoplete-rust'
 on_ft = ['rust']
 depends = ['deoplete.nvim']
 hook_source = '''
-let g:deoplete#sources#rust#racer_binary='/usr/local/bin/racer'
-let g:deoplete#sources#rust#rust_source_path='$(rustc --print sysroot)/lib/rustlib/manifest-rustc'
+let g:deoplete#sources#rust#racer_binary=$HOME.'/.cargo/bin/racer'
+let $RUST_SRC_PATH=$HOME.'/.rustup/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/library'
+let g:deoplete#sources#rust#rust_source_path=$RUST_SRC_PATH
 let g:deoplete#sources#rust#show_duplicates=1
 let g:deoplete#sources#rust#disable_keymap=1
 nmap <buffer> gd <plug>DeopleteRustGoToDefinitionDefault
@@ -534,6 +535,10 @@ repo = 'w0ng/vim-hybrid'
 
 [[plugins]]
 repo = 'nanotech/jellybeans.vim'
+hook_post_source='''
+set background=dark
+colorscheme jellybeans "meta5 iceberg hybrid dracula
+'''
 
 [[plugins]]
 repo = 'cocopon/iceberg.vim'
